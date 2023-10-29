@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  # Rails application service
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      RAILS_ENV: development
+    volumes:
+      - .:/app
+    command: bundle exec rails server -p 3000 -b '0.0.0.0'
+
+  # MySQL service
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: your_root_password
+      MYSQL_DATABASE: stock_trading_app_development
+    ports:
+      - "3306:3306"
